@@ -8,7 +8,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<IEquipoService, EquipoService>();
+builder.Services.AddTransient<IVehiculoService, VehiculoService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,6 +19,7 @@ app.UseCors(options =>
     options.AllowAnyOrigin();
     options.AllowAnyMethod();
     options.AllowAnyHeader();
+
 });
 if (app.Environment.IsDevelopment())
 {

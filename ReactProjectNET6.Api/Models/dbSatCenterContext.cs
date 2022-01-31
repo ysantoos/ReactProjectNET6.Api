@@ -16,8 +16,7 @@ namespace ReactProjectNET6.Api.Models
         {
         }
 
-        public virtual DbSet<Equipo> Equipos { get; set; } = null!;
-        public virtual DbSet<EquipoTipo> EquipoTipos { get; set; } = null!;
+        public virtual DbSet<Vehiculo> Vehiculos { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,48 +29,17 @@ namespace ReactProjectNET6.Api.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Equipo>(entity =>
+            modelBuilder.Entity<Vehiculo>(entity =>
             {
-                entity.HasKey(e => e.IdEquipo);
+                entity.HasKey(e => e.IdVehiculo)
+                    .HasName("PK_Equipos");
 
-                entity.Property(e => e.Alto).HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.Descripcion)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.Ancho).HasColumnType("decimal(18, 2)");
-
-                entity.Property(e => e.CodigoEquipo)
+                entity.Property(e => e.Placa)
                     .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ColorPrincipal)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DescripcionEquipo)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Largo).HasColumnType("decimal(18, 2)");
-
-                entity.Property(e => e.Serial)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.IdEquipoTipoNavigation)
-                    .WithMany(p => p.Equipos)
-                    .HasForeignKey(d => d.IdEquipoTipo)
-                    .HasConstraintName("FK_EquipoTipos_Equipos");
-            });
-
-            modelBuilder.Entity<EquipoTipo>(entity =>
-            {
-                entity.HasKey(e => e.IdEquipoTipo);
-
-                entity.Property(e => e.CodigoEquipoTipo)
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DescripcionEquipoTipo)
-                    .HasMaxLength(50)
                     .IsUnicode(false);
             });
 
